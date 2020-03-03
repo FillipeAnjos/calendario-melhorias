@@ -15,6 +15,23 @@ for($m = 1; $m <= 12; $m++) {
 ?>
 <div class="container" id="agenda">
   <form class="col-sm-12 col-md-6">
+    <!-- 
+      ***************************************************************************************************************************************************
+    -->
+    <!--<center>
+      <div class="dropdown">
+        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Cadastrar
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="views/areas.php">Áreas</a>
+          <a class="dropdown-item" href="#">Tarefas</a>
+        </div>
+      </div>
+    </center>-->
+    <!-- 
+      ***************************************************************************************************************************************************
+    -->
     <div class="form-row">
       <div class="form-group col-sm-12">
         <label for="area">Áreas</label>
@@ -64,7 +81,10 @@ for($m = 1; $m <= 12; $m++) {
 
     for(let field of fields) {
 
+
+
       if(field.value > 0) {
+      
 
         switch(field.id) {
           case 'area':
@@ -83,11 +103,28 @@ for($m = 1; $m <= 12; $m++) {
       }
     }
 
-    if(filtroMeses.length > 0) {
-      qryString += '&meses='
-      qryString += filtroMeses.join('-');
-    }
 
-    location.href = qryString;
+  var str = filtroMeses.toString();
+  var cond = str.split(",");
+
+
+  if(cond[0] == '' || cond[0] == null || cond[1] == '' || cond[1] == null){
+    alert('Favor informar os meses de início e fim!');
+  }else{
+
+      if( parseInt(cond[0]) < parseInt(cond[1]) ){
+          if(filtroMeses.length > 0) {
+            qryString += '&meses='
+            qryString += filtroMeses.join('-');
+          }
+
+          //location.href //http://localhost/teste/calendario-melhorias/index.php?path=inicio#
+          location.href = qryString; //?path=agenda&meses=1-2
+      }else{
+        alert('Error. O mês de início não pode ser maior ou igual ao mês final');
+      }
+
+  }
+    
   })
 </script>

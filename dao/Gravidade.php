@@ -4,6 +4,7 @@ namespace DAO;
 
 class Gravidade extends Database {
 
-    const TABLE = 'config.gravidade';
+	const TABLE = 'gravidade';
+    //const TABLE = 'config.gravidade';
     protected static $oInstance;
 }

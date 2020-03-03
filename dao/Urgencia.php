@@ -4,6 +4,7 @@ namespace DAO;
 
 class Urgencia extends Database {
 
-    const TABLE = 'config.urgencia';
+	const TABLE = 'urgencia';
+    //const TABLE = 'config.urgencia';
     protected static $oInstance;
 }

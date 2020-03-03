@@ -27,7 +27,14 @@ $gravidadesAll = Gravidade::getInstance()->order('id')->getAll();
 $urgenciasAll  = Urgencia::getInstance()->order('id')->getAll();
 $tendenciasAll = Tendencia::getInstance()->order('id')->getAll();
 
-$urgencias = Urgencia::getInstance()->order('id', 'desc')->getAll(3);
+$urgencias = Urgencia::getInstance()->order('id', 'desc')->getAll();//->getAll(3);
+
+/*
+$gravidades = Gravidade::getInstance()->order('id', 'desc')->getAll();//->getAll(3);
+$urgencias = Urgencia::getInstance()->order('id', 'desc')->getAll();//->getAll(3);
+$tendencias = Tendencia::getInstance()->order('id', 'desc')->getAll();//->getAll(3);
+*/
+
 $melhoriasAgenda = Melhoria::getInstance()
     ->order('prazo_legal')
     ->order('prazo_acordado')
@@ -91,6 +98,15 @@ foreach($melhoriasAgenda as $melhoriaAgenda) {
                     <?php $melhoriasEncontradas = !empty($melhorias[$area->id][$m][$urgencia->id]) ? $melhorias[$area->id][$m][$urgencia->id] : null; ?>
                     <?php if(!empty($melhoriasEncontradas)) : ?>
                       <?php foreach($melhoriasEncontradas as $melhoria) : ?>
+                        <?php 
+                          // ----------------------------------------------------------------------------
+                          $pzoLegal = explode("-", $melhoria->prazo_legal); 
+                          $prazoLegalCorreto = $pzoLegal[2]."/".$pzoLegal[1]."/".$pzoLegal[0];
+
+                          $pzoAcordado = explode("-", $melhoria->prazo_acordado); 
+                          $prazoAcordadoCorreto = $pzoAcordado[2]."/".$pzoAcordado[1]."/".$pzoAcordado[0];
+                          // ----------------------------------------------------------------------------
+                        ?>
                                 <td class="table-<?php echo $urgencia->id == 5 ? 'primary' : ($urgencia->id == 4 ? 'danger' : 'warning' ) ; ?>">
 
                                   <div class="wrapper-melhoria" id="wrapper_melhoria_<?php echo "{$area->id}_{$m}_{$melhoria->id}" ?>">
@@ -123,11 +139,11 @@ foreach($melhoriasAgenda as $melhoriaAgenda) {
                                               <div class="form-group form-row">
                                                 <div class="col">
                                                   <label  for="prazo_legal">Prazo legal</label>
-                                                  <input type="text" class="form-control mb-2" id="prazo_legal" placeholder="Prazo legal" readonly value="<?php echo $prazoLegal ?>">
+                                                  <input type="text" class="form-control mb-2" id="prazo_legal" placeholder="Prazo legal" readonly value="<?php echo $prazoLegalCorreto; ?>">
                                                 </div>
                                                 <div class="col">
                                                   <label for="prazo_acordado">Prazo acordado</label>
-                                                  <input type="text" class="form-control" id="prazo_acordado" placeholder="Prazo acordado" readonly value="<?php echo $prazoAcordado ?>">
+                                                  <input type="text" class="form-control" id="prazo_acordado" placeholder="Prazo acordado" readonly value="<?php echo $prazoAcordadoCorreto ?>">
                                                 </div>
                                                   </div>
                                               <div class="form-group form-row">
